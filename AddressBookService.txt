@@ -1,0 +1,43 @@
+
+ -- UC1--> create a Address Book Service
+create database AddressBookService; 
+use addressbookservice;
+-- UC2--> create a Address Book Table
+create table AddressBook(FirstName varchar(20),LastName varchar(20),
+Address varchar(20),City varchar(20),State varchar(20),
+Zip int(7),PhoneNumber varchar(20),Email_ID varchar(20));
+
+-- UC3--> insert new Contacts to Address Book
+insert into AddressBook values('Sanjaya','Singh','Komapali','Brahmapur','Odisha',760006,'7456982136','singh518@gmail.com'),
+('Vikas','Senapati','Barmunda','Bhubaneswar','Odisha',760010,'789654136','vikas@gmail.com'),
+('Sompali','Das','First Gate','Cuttack','Odisha',760566,'9685741239','sompali@gmail.com'),
+('Partha','Muduli','Gate Bazar','Gajpati','Odisha',767806,'9988445563','partha@gmail.com');
+select *from AddressBook  ;
+
+-- UC4-->edit existing contact person using their name
+update AddressBook set Zip ='760009'where (FirstName='Sanjaya');
+
+-- UC5--> delete a person using person's name
+delete from AddressBook where firstName = "Sompali";
+
+-- UC6-->Retrieve Person belonging to a City or State from the Address Book
+select * from AddressBook where State = "Odisha" and city = "Bhubaneswar";
+
+-- UC7-->understand the size of address book by City and State
+select count(City or State) from AddressBook where state = "Odisha" and city = "Cuttack";
+
+-- UC8-->retrieve entries sorted alphabetically by Person’s name for a given city
+select * from AddressBook where City = "Gajpati" order by FirstName;
+
+-- UC9--> Alter Address Book to add name and type
+alter table AddressBook add Relation varchar(20) after LastName;
+alter table AddressBook add RName varchar(20) after LastName;
+
+use AddressBookService;
+update addressBook set Rname = "Satya Narayan", Relation = "Family" where FirstName = 'Sanjaya';
+update addressBook set Rname = "Vishal", Relation = "Friend" where FirstName = "Vikas";
+update addressBook set Rname = "Sidhant", Relation = "Professor" where FirstName = "Sompali";
+
+-- UC10--> get number of contact persons
+select count(FirstName) from AddressBook;
+
